@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: gamedailynews
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn Gamedailynews.wsgi:application
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: gamedaily-db
+          property: connectionString
+
+databases:
+  - name: gamedaily-db
