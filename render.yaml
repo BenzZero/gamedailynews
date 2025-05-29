@@ -2,10 +2,11 @@ services:
   - type: web
     name: gamedailynews
     env: python
+    plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn Gamedailynews.wsgi:application
+    startCommand: gunicorn Gamedailynews.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
-      - key: DJANGO_SETTINGS_MODULE
-        value: Gamedailynews.settings
-      - key: SECRET_KEY
+      - key: DJANGO_SECRET_KEY
         generateValue: true
+      - key: PYTHON_VERSION
+        value: 3.11
